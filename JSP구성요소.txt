@@ -1,0 +1,22 @@
+JSP를 구성하는 9가지 구성요소
+1.directive    <%@include%>
+2.scriptlet	<% %>
+3.expression	<%= %>
+4.declaration	<%! %>
+5.comment	<%-- --%>
+6.9개 기본객체(내장객체)
+7.Action Tag	<jsp: />
+8.Custom Tag	<aaa:bbb /> [내가 만드는 태그]
+9.EL & JSTL
+
+request.getParameter
+request.getParameterValues
+
+
+
+------------------------------------------------
+기본import 되는 package
+1.java.lang.*
+2.javax.servlet.*
+3.javax.servlet.http.*
+4.javax.servlet.jsp.*
