@@ -10,3 +10,7 @@
 
 %>
 </ul>
+<% 
+	application.log("application log");
+	System.out.println("Sysout");
+%>
