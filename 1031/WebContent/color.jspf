@@ -1,0 +1,8 @@
+<!-- color.jspf -->
+<!-- 각 페이지에서 사용할 공통 색상 -->
+
+<%
+	String background_c = "#121212";
+	String h1_c = "#212121";
+	String font_c = "#f0f0f0";
+%>
