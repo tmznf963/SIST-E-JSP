@@ -105,8 +105,7 @@
     -->
 
     <!-- Define an AJP 1.3 Connector on port 8009 -->
-    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443"
-    enableLookups="true" address="192.168.56.1"/>
+    <Connector address="192.168.56.1" enableLookups="true" port="8009" protocol="AJP/1.3" redirectPort="8443"/>
 
 
     <!-- An Engine represents the entry point (within Catalina) that processes
@@ -155,7 +154,23 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="1029" path="/1029" reloadable="true" source="org.eclipse.jst.jee.server:1029"/><Context docBase="1030" path="/1030" reloadable="true" source="org.eclipse.jst.jee.server:1030"/></Host>
+      <Context docBase="1029" path="/1029" reloadable="true" source="org.eclipse.jst.jee.server:1029"/>
+      <Context docBase="1030" path="/1030" reloadable="true" source="org.eclipse.jst.jee.server:1030"/>
+      <Context docBase="1031" path="/1031" reloadable="true" source="org.eclipse.jst.jee.server:1031"/>
+      <Context docBase="1101" path="/1101" reloadable="true" source="org.eclipse.jst.jee.server:1101">
+      		<Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxActive="10" maxIdle="10" maxWait="1000" name="jdbc/mymariadb" password="root" type="javax.sql.DataSource" url="jdbc:mariadb://192.168.56.4:3306/world" username="root"/>
+      </Context>
+      <Context docBase="1102" path="/1102" reloadable="true" source="org.eclipse.jst.jee.server:1102"/>
+      <Context docBase="EmployeeMgmt" path="/employeemgmt" reloadable="true" source="org.eclipse.jst.jee.server:EmployeeMgmt">
+      		<Resource auth="Container" driverClassName="org.mariadb.jdbc.Driver" maxActive="10" maxIdle="10" maxWait="1000" name="jdbc/mymariadb" password="root" type="javax.sql.DataSource" url="jdbc:mariadb://192.168.56.4:3306/test" username="root"/>
+      </Context>
+      <Context docBase="1106_2" path="/1106_2" reloadable="true" source="org.eclipse.jst.jee.server:1106_2"/>
+      <Context docBase="standard-doc" path="/standard-doc" reloadable="true" source="org.eclipse.jst.j2ee.server:standard-doc"/>
+      <Context docBase="1107" path="/1107" reloadable="true" source="org.eclipse.jst.jee.server:1107"/>
+      <Context docBase="1108" path="/1108" reloadable="true" source="org.eclipse.jst.jee.server:1108">
+      		<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxActive="10" maxIdle="10" maxWait="1000" name="jdbc/myoracle" password="TIGER" type="javax.sql.DataSource" url="jdbc:oracle:thin:@192.168.56.4:1521:orcl" username="SCOTT"/>
+      </Context>
+      </Host>
     </Engine>
   </Service>
 </Server>
