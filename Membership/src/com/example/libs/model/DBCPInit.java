@@ -1,9 +1,10 @@
 package com.example.libs.model;
 
-import javax.servlet.http.HttpServlet;
+import java.util.StringTokenizer;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import java.util.StringTokenizer;
+import javax.servlet.http.HttpServlet;
 
 public class DBCPInit extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
@@ -15,7 +16,7 @@ public class DBCPInit extends HttpServlet {
 				Class.forName(jdbcDriver);
 			}
 			Class.forName("org.apache.commons.dbcp.PoolingDriver");
-		} catch (Exception ex) {
+		} catch(Exception ex) {
 			throw new ServletException(ex);
 		}
 	}

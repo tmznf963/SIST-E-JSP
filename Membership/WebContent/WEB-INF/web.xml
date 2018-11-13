@@ -15,7 +15,7 @@
 
 	<servlet>
 		<servlet-name>DBCPInit</servlet-name>
-		<servlet-class>kr.co.javaexpert.libs.db.DBCPInit</servlet-class>
+		<servlet-class>com.example.libs.model.DBCPInit</servlet-class>
 		<load-on-startup>1</load-on-startup>
 		<init-param>
 			<param-name>jdbcdriver</param-name>
