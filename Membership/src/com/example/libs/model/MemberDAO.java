@@ -6,6 +6,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class MemberDAO {
+	public static int updateMember(MemberVO member) throws SQLException{
+		Connection conn = DBConnection.getConnection("member");
+		String sql = "{ call member_update(?,?,?,?,?) }";
+		CallableStatement cstmt = conn.prepareCall(sql);
+		cstmt.setString(1, member.getUserid());
+		cstmt.setString(2, member.getEmail());
+		cstmt.setString(3, member.getZipcode());
+		cstmt.setString(4, member.getAddress1());
+		cstmt.setString(5, member.getAddress2());
+		int row = cstmt.executeUpdate();
+		if(cstmt != null) cstmt.close();
+		DBClose.close(conn);
+		return row;
+	}
+	public static int deleteMember(String userid) throws SQLException{
+		Connection conn = DBConnection.getConnection("member");
+		String sql = "{ call member_delete(?) }";
+		CallableStatement cstmt = conn.prepareCall(sql);
+		cstmt.setString(1, userid);
+		int row = cstmt.executeUpdate();
+		if(cstmt != null) cstmt.close();
+		DBClose.close(conn);
+		return row;
+	}
 	public static MemberVO selectMember(String userid) throws SQLException{
 		Connection conn = DBConnection.getConnection("member");
 		String sql = "{ call member_select(?,?) }";
@@ -15,11 +39,11 @@ public class MemberDAO {
 		cstmt.executeUpdate();
 		ResultSet rs = (ResultSet)cstmt.getObject(2);
 		rs.next();
-		MemberVO member = new MemberVO(rs.getString("username"), rs.getString("userid"), 
-				rs.getString("passwd"), rs.getString("email"),
-				rs.getString("zipcode"), rs.getString("address1"), rs.getString("address2"));
-		
-		if(rs != null) rs.close();
+		MemberVO member = new MemberVO(rs.getString("username"), 
+				rs.getString("userid"), rs.getString("passwd"), 
+				rs.getString("email"), rs.getString("zipcode"),
+				rs.getString("address1"), rs.getString("address2"));
+		if(rs != null)  rs.close();
 		if(cstmt != null) cstmt.close();
 		DBClose.close(conn);
 		return member;
@@ -27,7 +51,7 @@ public class MemberDAO {
 	//-1:No Account, 0 : Not Equals Password, 1 : All Success
 	public static int loginMember(String userid, String passwd) throws SQLException{
 		Connection conn = DBConnection.getConnection("member");
-		String sql = "{ call member_login_new(?,?) }";
+		String sql = "{ call member_login(?,?) }";
 		CallableStatement cstmt = conn.prepareCall(sql);
 		cstmt.setString(1, userid);
 		cstmt.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);

@@ -1,0 +1,19 @@
+package com.example.libs.controller;
+
+import java.sql.SQLException;
+
+import com.example.libs.model.MemberDAO;
+import com.example.libs.model.MemberVO;
+
+public class UpdateController {
+	public int updateMember(MemberVO member) {
+		System.out.println(member.getEmail());
+		int row = -1;
+		try {
+			row = MemberDAO.updateMember(member);
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return row;
+	}
+}

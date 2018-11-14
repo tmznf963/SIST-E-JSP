@@ -7,9 +7,17 @@
 <style type="text/css">
 		.jumbotron {
 			background-image:url("images/software.jpg");
-			color:red;
+			color:#fff;
 		}
 	</style>
+<script src="js/jquery.min.js"></script>
+<script>
+	$(function(){
+		$("#btnJoin").bind("click", function(){
+			location.href = "register.html";
+		});
+	});
+</script>
 </head>
 <body>
 	<div class="container">
@@ -39,7 +47,7 @@
 	  <div class="form-group">
 	    <div class="col-sm-offset-3 col-sm-6">
 	      <button type="submit" class="btn btn-info">Sign in</button>
-	      <button type="button" class="btn btn-success">Join</button>
+	      <button type="button" class="btn btn-success" id="btnJoin">Join</button>
 	    </div>
 	  </div>
 	</form>

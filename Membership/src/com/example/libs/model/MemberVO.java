@@ -8,7 +8,7 @@ public class MemberVO {
 	
 	public MemberVO() {}  //for Java Bean
 	
-	public MemberVO(String username, String userid, String passwd, String email, Date regdate) {                      
+	public MemberVO(String username, String userid, String passwd, String email, Date regdate) {
 		this.username = username;           	this.userid = userid;
 		this.passwd = passwd;                   this.email = email;
 		this.regdate = regdate;
@@ -24,14 +24,7 @@ public class MemberVO {
 		this.address1 = address1;
 		this.address2 = address2;
 	}
-	
-	public Date getRegdate() {
-		return regdate;
-	}
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
-	}
-	
+
 	public String getUsername() {
 		return username;
 	}
@@ -56,6 +49,15 @@ public class MemberVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public Date getRegdate() {
+		return this.regdate;
+	}
+	
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+	
 	public String getZipcode() {
 		return zipcode;
 	}
