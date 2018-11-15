@@ -34,8 +34,8 @@
 		<p>쇼핑몰의 새 강자 EXAMPLE.COM이 해결하겠습니다.</p>
 		<p class="lead">
 			<c:if test="${empty sessionScope.username}">
-				<!-- <a class="btn btn-warning btn-lg" href="login.html" role="button">로그인</a> -->
-				<a class="btn btn-warning btn-lg" href="login1.jsp" role="button">로그인</a>
+				<a class="btn btn-warning btn-lg" href="login.html" role="button">로그인</a>
+				<!-- <a class="btn btn-warning btn-lg" href="login1.jsp" role="button">로그인</a> -->
 			</c:if>
 			<c:if test="${not(empty sessionScope.username)}">
 			[${sessionScope.username}(${sessionScope.userid})]
