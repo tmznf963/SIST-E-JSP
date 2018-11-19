@@ -4,9 +4,65 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Vector;
 
 public class GesipanDAO {
+	public static void updateStep(int grp, int step) throws SQLException{
+		Connection conn = DBConnection.getConnection();
+		String sql = "{ call board_update_step(?, ?) }";
+		CallableStatement cstmt = conn.prepareCall(sql);
+		cstmt.setInt(1, grp);
+		cstmt.setInt(2, step);
+		cstmt.executeUpdate();
+		if(cstmt != null) cstmt.close();
+		DBClose.close(conn);
+	}
+	public static int update(GesipanVO gesipan) throws SQLException{
+		Connection conn = DBConnection.getConnection();
+		String sql = "{ call board_update(?, ?, ?, ?) }";
+		CallableStatement cstmt = conn.prepareCall(sql);
+		cstmt.setString(1, gesipan.getEmail());
+		cstmt.setString(2, gesipan.getTitle());
+		cstmt.setString(3, gesipan.getContents());
+		cstmt.setInt(4, gesipan.getIdx());
+		int row = cstmt.executeUpdate();
+		if(cstmt != null) cstmt.close();
+		DBClose.close(conn);
+		return row;
+	}
+	public static String selectPassword(int idx) throws SQLException{
+		Connection conn = DBConnection.getConnection();
+		String sql = "{ call board_select_passwd(?,?) }";
+		CallableStatement cstmt = conn.prepareCall(sql);
+		cstmt.setInt(1, idx);
+		cstmt.registerOutParameter(2, Types.VARCHAR);
+		cstmt.executeUpdate();
+		String dbpasswd = cstmt.getString(2);
+		if(cstmt != null) cstmt.close();
+		DBClose.close(conn);
+		return dbpasswd;
+	}
+	public static int delete(int idx) throws SQLException{
+		Connection conn = DBConnection.getConnection();
+		String sql = "{ call board_delete(?) }";
+		CallableStatement cstmt = conn.prepareCall(sql);
+		cstmt.setInt(1, idx);
+		int row = cstmt.executeUpdate();
+		if(cstmt != null) cstmt.close();
+		DBClose.close(conn);
+		return row;
+	}
+	//조회수 증가
+	public static void readnumUpdate(int idx) throws SQLException{
+		Connection conn = DBConnection.getConnection();
+		String sql = "{ call board_readnum_update(?) }";
+		CallableStatement cstmt = conn.prepareCall(sql);
+		cstmt.setInt(1, idx);
+		cstmt.executeUpdate();
+		if(cstmt != null) cstmt.close();
+		DBClose.close(conn);
+	}
 	public static GesipanVO select(int idx) throws SQLException{
 		Connection conn = DBConnection.getConnection();
 		String sql = "{ call board_select(?, ?) }";
@@ -18,7 +74,7 @@ public class GesipanDAO {
 		rs.next();
 		GesipanVO gesipan = new GesipanVO();
 		gesipan.setName(rs.getString("name"));
-		gesipan.setPasswd(rs.getString("passwd"));
+		//gesipan.setPasswd(rs.getString("passwd"));
 		gesipan.setEmail(rs.getString("email"));
 		gesipan.setTitle(rs.getString("title"));
 		gesipan.setContents(rs.getString("contents"));

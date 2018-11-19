@@ -41,7 +41,7 @@
 <c:if test="${row ne 1}">
 	<script>
 		alert("Insert Failure");
-		history.back(-1);
+		history.back();
 	</script>
 </c:if>
 

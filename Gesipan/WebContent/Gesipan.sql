@@ -68,3 +68,57 @@ BEGIN
 	SELECT * FROM Gesipan
 	WHERE idx = p_idx;
 END;
+
+--조회수 증가를 위한 update
+CREATE OR REPLACE PROCEDURE board_readnum_update
+( 
+	p_idx 		IN		gesipan.idx%TYPE
+)
+IS
+	p_readnum		gesipan.readnum%TYPE;
+BEGIN
+	SELECT readnum INTO p_readnum
+	FROM Gesipan	WHERE idx = p_idx;
+	
+	UPDATE Gesipan SET readnum = readnum + 1
+	WHERE idx = p_idx;
+	COMMIT;
+END;
+
+CREATE OR REPLACE procedure board_delete
+(
+	p_idx IN gesipan.idx%TYPE
+)
+IS
+BEGIN
+	DELETE FROM Gesipan
+	WHERE idx = p_idx;
+	COMMIT;
+END;
+
+CREATE OR REPLACE PROCEDURE board_select_passwd
+(
+	p_idx 			IN		gesipan.idx%TYPE,
+	dbpasswd		OUT		gesipan.passwd%TYPE
+)
+IS
+BEGIN
+	SELECT passwd INTO dbpasswd
+	FROM Gesipan
+	WHERE idx = p_idx;
+END; 
+
+--답변처리를 위한 각 레코드의 step Update
+--답변글의 step값과  같거나, 큰 step 값 1씩 증가
+CREATE OR REPLACE PROCEDURE board_update_step
+(
+	p_grp			IN			gesipan.grp%TYPE,
+	p_step		IN			gesipan.step%TYPE
+)
+IS
+BEGIN
+	UPDATE Gesipan
+	SET step = step + 1
+	WHERE grp = p_grp AND step > p_step;
+	COMMIT;
+END;
