@@ -5,8 +5,6 @@
 <jsp:useBean id="sc" class="com.example.libs.controller.SelectController" />
 <jsp:useBean id="uc" class="com.example.libs.controller.UpdateController" />
 <c:set var="gesipan" value="${sc.select(param.idx)}" />  
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,28 +12,25 @@
 <title>글 내용보기</title>
 <link rel="stylesheet" href="css/style.css" />
 <style type="text/css">
-	table{
-		width:60%;
-		margin-left:auto;
-		margin-right:auto;
+	table {
+		width:50%; margin-left:auto;   margin-right:auto;
 	}
-	table th{
-		width:20%;
-		background-color : navy;
-		color : white;
+	table:nth-of-type(1) th{
+		width:20%; background-color:navy;
+		color:white;
 	}
-	table td:nth-of-type(1){
-		width:35;
+	table:nth-of-type(1) td:nth-of-type(1){
+		width:35%;
 	}
-	table:nth-of-type(2) tr:nth-of-type(1) td:first-child{
-		text-align : center;
+	table:nth-of-type(2) > tr:nth-child(1) > td {
+		text-align:center;
 	}
-	table:nth-of-type(2) tr:nth-of-type(2) td:first-child{
+	table:nth-of-type(2) td:nth-of-type(2) {
 		text-align:left;
 	}
 </style>
-<script src="js/jquery.min.js" ></script>
-<script>
+	<script src="js/jquery.min.js"></script>
+	<script>
 		$(function(){
 			$("#btnList").click(function(){
 				location.href = "index.jsp";
@@ -50,7 +45,7 @@
 				location.href = "update.jsp?idx=" + ${param.idx};
 			});
 			$("#btnReply").click(function(){
-				location.href = "reply.jsp?idx=" + ${param.idx};
+				location.href = "reply.jsp?idx=" + ${param.idx}+"&grp=" + ${gesipan.getGrp()} + "&lev=" + ${gesipan.getLev()} + "&step=" + ${gesipan.getStep()};
 			});
 		});
 	</script>
@@ -68,7 +63,10 @@
 			<th>조회수</th><td>${gesipan.getReadnum()}</td>
 		</tr>
 		<tr>
-			<th>첨부파일</th><td colspan="3">${gesipan.getFilename()}</td>
+			<th>첨부파일</th>
+			<td colspan="3">
+				<a href="download.jsp?idx=${param.idx}&filename=${gesipan.getFilename()}">${gesipan.getFilename()}</a>
+			</td>
 		</tr>
 	</table><br />
 	<table border='1'>
@@ -89,4 +87,4 @@
 	</table>
 </body>
 </html>
-${uc.readnumUpdate(param.idx)}
+${	uc.readnumUpdate(param.idx) }

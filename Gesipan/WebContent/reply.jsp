@@ -15,17 +15,17 @@
 <body>
 	<h1>게시판 글 답변하기</h1>
 	<form action="/Gesipan/reply_ok.jsp" method="post">
+	<!-- reply_ok.jsp 로 넘어갈 value값 == name  -->
 		<input type="hidden" name="p_idx" value="${param.idx}" />
 		<input type="hidden" name="p_grp" value="${grp}" />
 		<input type="hidden" name="p_lev" value="${lev}" />
 		<input type="hidden" name="p_step" value="${step}" />
 		<ul style="list-style-type: none;margin:10px 0px">
-			<li>Name : <input type="text" name="name" readonly="readonly" 
-					value="${sessionScope.name}" /></li>
+			<li>Name : <input type="text" name="name" value="${sessionScope.name}" /></li>
 			<li>Password : <input type="password" name="passwd" /></li>
 			<li>Email : <input type="email" name="email" size="50" />
 			<li>Title : <input type="text" name="title" size="50" 
-			        value="RE  :  ${Util.reconvert(gesipan.getTitle(), false)}"/></li>
+			        value="${Util.reconvert(gesipan.getTitle(), false)}"/></li>
 			<li>Contents : <textarea name="contents" rows="10" cols="50">${Util.concat(Util.reconvert(gesipan.getContents(), true))}</textarea></li>
 			<li><button type="submit">답변하기</button>&nbsp;&nbsp;&nbsp;
 					<button type="reset">다시하기</button></li>
