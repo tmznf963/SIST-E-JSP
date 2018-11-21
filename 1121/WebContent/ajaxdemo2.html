@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ajax File Type : Text</title>
+<script>
+	window.addEventListener('load',setup);
+	function setup(){
+		document.getElementById("btnGetData").addEventListener("click",myclick);
+	}
+	var xhr = null;
+	function myclick(){
+		xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = callback;
+		xhr.open("GET","sungjuk_utf8.xml");
+		xhr.send(null);		
+	}
+	function callback(){
+		if(xhr.readyState ==4 && xhr.status == 200){
+			alert(xhr.responseXML);
+		}
+	}
+</script>
+</head>
+<body>
+	<h1 style="text-align:center">성적 데이터 : XML File</h1>
+	<input type="button" value="Get Data" id="btnGetData" style="margin-left:auto; margin-right:auto"> <br>
+	<table border="1" style="border-collapse:collapse;border=1px solid black; width:600px;margin-left:auto; margin-right:auto">
+		<thead>
+		<tr style="background-color:navy;color:white">
+			<th>번호</th>
+			<th>이름</th>
+			<th>국어</th>
+			<th>영어</th>
+			<th>수학</th>
+			<th>전산</th>
+		</tr>
+		</thead>
+		<tbody id="result"></tbody>
+	</table>
+</body>
+</html>
