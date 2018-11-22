@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="script/jquery.min.js"></script>
+<script>
+	$(function() {
+		$("#txtToday").bind("blur", function() {
+			$.get({		//get만 하니깐 method 필요없음.
+				url : "date.jsp",
+				data : {
+					
+				},
+				success : function(data) {
+					$("#txtToday").val(data);//value에 data값 넣기
+				},
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<input type="text" id="txtToday" size="40" />
+</body>
+</html>

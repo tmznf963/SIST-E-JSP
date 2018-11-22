@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="script/jquery.min.js"></script>
+<script>
+	$(function(){
+		$("#btnGetdata").bind("click",function(){
+			//1번 방법
+			/* var param="username=" + $("#username").val() +
+									"&userage=" +$("#userage").val() +
+									"&userphone=" +$("#userphone").val(); */
+			//2번 방법
+			/* var data = {
+											username : $("#username").val() ,
+											userage : $("#userage").val(),
+											userphone : $("#userphone").val()
+									};
+			var param = $.param(data); */
+			//3번 방법
+			var data = {
+								username : $("#username").val() ,
+								userage : $("#userage").val(),
+								userphone : $("#userphone").val()
+						};
+			$("#result").load("getdata.jsp",data);
+		});
+	});
+</script>
+</head>
+<body>
+	<h1>User Info : GET</h1>
+	<h3>핸드폰 번호를 넣으시고 배경을 클릭하세요.</h3>
+	<ul>
+		<li>Name : <input type="text" id="username"></li>
+		<li>Age : <input type="number" id="userage" ></li>
+		<li>Phone : <input type="tel" id="userphone"></li>
+		<li><button type="button" id="btnGetdata">Get Data</button></li>
+	</ul>
+	Result : <span id="result" ></span>
+</body>
+</html>

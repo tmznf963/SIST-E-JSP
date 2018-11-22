@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="script/jquery.min.js"></script>
+<script>
+	//FM JQuery
+	$(document).ready(function(){
+		$("#btnCalc").click(function(){
+			$.ajax({
+				url : "usingajax.jsp",
+				method : "get",
+				data : {//server로 가는 data
+					num1: $("#num1").val() ,
+					num2:  $("#num2").val()
+				},
+				success : function(aa){//받아오는 data
+					$("#result").text(aa);//.html .text
+				} ,
+				error :  function(err){
+					console.error("에러발생" + err);
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<input type="number" id="num1"> +
+	<input type="number" id="num2">
+	<button type="button" id="btnCalc">=</button>
+	<output id="result"></output>
+</body>
+</html>

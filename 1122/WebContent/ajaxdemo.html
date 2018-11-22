@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script>
+		var cc = null;//countycode
+		window.onload = function(){
+			document.getElementById("listCC").onchange = myclick;
+			cc = new XMLHttpRequest();
+			cc.onload = cc_callback;
+			cc.open("GET","getcountrycode.jsp");
+			cc.send(null);
+		}
+		function cc_callback(){
+			if(cc.status==200 || cc.status==201){
+				//console.log(cc.responseXML);
+				var result ="";
+				var xmlDoc = cc.responseXML;
+				var list = xmlDoc.getElementsByTagName("countrycode");
+				var str = "<option>--선택--</option>";
+				for(var i = 0 ; i < list.length ; i++){
+					str += "<option value='" + list[i].firstChild.nodeValue + "'>" + 
+								list[i].firstChild.nodeValue + "</option>";
+				}
+				document.getElementById("listCC").innerHTML = str;
+			}
+		}
+		var xhr = null;
+		function myclick(){
+			xhr = new XMLHttpRequest();
+			var param = "code=" + document.getElementById("listCC").value;
+			//console.log(param);
+			xhr.onload = callback;
+			xhr.open("GET","ajaxdemo.jsp?" + param);
+			xhr.send(null);
+		}
+		function callback(){
+			if(xhr.status==200 || xhr.status==201){
+				var result ="";
+				var xmlDoc = xhr.responseXML;
+				var list = xmlDoc.getElementsByTagName("city");
+				//console.log(list);
+				for(var i = 0 ; i < list.length ; i++){
+					result += "<tr>";
+					var city = list.item(i);
+					var id = city.getAttribute("id");
+					result += "<td>" + id + "</td>"; 
+					var name = city.getElementsByTagName("name").item(0);
+					result += "<td>" + name.firstChild.nodeValue + "</td>";
+					var countrycode = city.getElementsByTagName("countrycode").item(0);
+					result += "<td>" + countrycode.firstChild.nodeValue + "</td>";
+					var district = city.getElementsByTagName("district")[0];
+					result += "<td>" + district.firstChild.nodeValue + "</td>";
+					var population = city.getElementsByTagName("population")[0];
+					result += "<td>" + population.firstChild.nodeValue + "</td>";
+					result += "</tr>"; 
+				}
+				document.getElementById("result").innerHTML = result;
+			}
+		}
+		//ID, Name, CountryCode, District, Population
+	</script>
+</head>
+<body>
+	Country Code : 
+				<select id="listCC" name="listCC">
+			 		 <option>--선택--</option>
+				</select>
+	<table border='1'>
+		<thead>
+			<tr>
+				<th>일련번호</th><th>도시명</th><th>국가코드</th>
+				<th>지역</th><th>인구</th>
+			</tr>
+		</thead>
+		<tbody id="result"></tbody>
+	</table>
+</body>
+</html>
+
+

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	window.addEventListener("load",setup,false);
+	function setup(){
+		document.getElementById("btnGetdata").addEventListener('click',myclick);
+	}
+	var xhr;
+	function myclick(){
+		xhr = new XMLHttpRequest();  //1단계
+		xhr.onreadystatechange = mycallback; //2단계
+		var param = "username=" + document.getElementById("username").value +
+									"&userage=" + document.getElementById("userage").value +
+									"&userphone=" + document.getElementById("userphone").value;
+		xhr.open("GET" , "getdata.jsp?"+param, true); //3단계
+		xhr.send(null);	//4단계
+	}
+	function mycallback(){
+		if(xhr.readyState == xhr.DONE && xhr.status == 200){			//xhr.DONE == 상수
+			document.getElementById("result").innerHTML = xhr.responseText;
+		}
+	}
+</script>
+</head>
+<body>
+	<h1>User Info : GET</h1>
+	<h3>핸드폰 번호를 넣으시고 배경을 클릭하세요.</h3>
+	<ul>
+		<li>Name : <input type="text" id="username"></li>
+		<li>Age : <input type="number" id="userage" ></li>
+		<li>Phone : <input type="tel" id="userphone"></li>
+		<li><button type="button" id="btnGetdata">Get Data</button></li>
+	</ul>
+	Result : <span id="result" ></span>
+</body>
+</html>

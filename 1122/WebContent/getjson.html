@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ajax File Type : JSON</title>
+<script>
+	window.addEventListener('load',setup);
+	function setup(){
+		document.getElementById("btnGetData").addEventListener("click",myclick);
+	}
+	var xhr = null;
+	function myclick(){
+		xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = callback;
+		xhr.open("GET","sungjuk_utf8.json");
+		xhr.send(null);		
+	}
+	function callback(){
+		if(xhr.readyState ==4 && xhr.status == 200){
+			var result = xhr.responseText;
+			var obj = JSON.parse(result);
+			var array = obj.students;
+			var str = "";
+			for(var i = 0 ; i<array.length ; i++){
+				str +="<tr>";
+				str +="<td>" + array[i]["hakbun"] + "</td>" +
+							"<td>"+ array[i].irum+"</td>" +
+							"<td>"+ array[i].kor+"</td>" +
+							"<td>"+ array[i].eng+"</td>" +
+							"<td>"+ array[i].mat+"</td>" +
+							"<td>"+ array[i].edp+"</td>";
+				str += "</tr>";
+			}
+			document.getElementById("result").innerHTML = str;
+		}
+	}
+</script>
+</head>
+<body>
+	<h1 style="text-align:center">성적 데이터 : JSON File</h1>
+	<input type="button" value="Get Data" id="btnGetData" style="margin-left:auto; margin-right:auto"> <br>
+	<table border="1" style="border-collapse:collapse;border=1px solid black; width:600px;margin-left:auto; margin-right:auto">
+		<thead>
+		<tr style="background-color:navy;color:white">
+			<th>번호</th>
+			<th>이름</th>
+			<th>국어</th>
+			<th>영어</th>
+			<th>수학</th>
+			<th>전산</th>
+		</tr>
+		</thead>
+		<tbody id="result"></tbody>
+	</table>
+</body>
+</html>
