@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	window.addEventListener("load",setup,false);
+	function setup(){
+		document.getElementById("btnGetdata").addEventListener('click',myclick);
+	}
+	var xhr;
+	function myclick(){
+		xhr = new XMLHttpRequest();//1단계
+		xhr.onload = mycallback;//2단계
+		var data = {  //object literal JSON
+				"username" : document.getElementById("username").value,
+				"userage" : document.getElementById("userage").value,
+				"userphone" : document.getElementById("userphone").value
+		};
+		
+		xhr.open("POST" , "getdata1.jsp",true);//3단계
+		//반드시 POST 방식은 setRequestHeader() 설정 (open과 send사이)
+		xhr.setRequestHeader("Content-Type","application/json");//json type
+		
+		xhr.send(JSON.stringify(data));//4단계  object --> String
+		//POST 방식은 반드시 .send(data) 넣을 것.
+	}
+	function mycallback(){
+		if(xhr.status == 200 || xhr.status == 201){ // 2단계에서 xhr.onload 일 때는 xhr.readyState == 4 하지 않는다.
+			document.getElementById("result").innerHTML = xhr.responseText;
+		}
+	}
+</script>
+</head>
+<body>
+	<h1>User Info : JSON</h1>
+	<h3>핸드폰 번호를 넣으시고 배경을 클릭하세요.</h3>
+	<ul>
+		<li>Name : <input type="text" id="username"></li>
+		<li>Age : <input type="number" id="userage" ></li>
+		<li>Phone : <input type="tel" id="userphone"></li>
+		<li><button type="button" id="btnGetdata">Get Data</button></li>
+	</ul>
+	Result : <span id="result" ></span>
+</body>
+</html>

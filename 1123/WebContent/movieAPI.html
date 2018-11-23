@@ -1,0 +1,72 @@
+<!-- Client -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>영화진흥위원회-일별박스오피스</title>
+<script src="script/jquery.min.js"></script>
+<script>
+	$(function(){
+		$.ajax({
+			url : "movieAPI.jsp",
+			method : "GET",
+			datatype : "xml",
+			error : function(err){
+				console.log(err);
+			},
+			success : function(data){
+				var xmlDoc = data;
+				//console.log(xmlDoc);//object 전체 값
+				var array = xmlDoc.getElementsByTagName("dailyBoxOffice");//item Tag들의 값 다 가져오기.
+				var str="";
+				//console.log(array);
+				//rank movieNm openDt audiAcc
+				for(var i =0 ; i < array.length ; i++){
+					var item = array[i];
+					str += "<tr><td>" + (i + 1) + "</td>";
+					var rank = item.getElementsByTagName("rank").item(0);
+					rank = rank.firstChild.nodeValue;
+					str += "<td>"+rank+"</td>";
+					
+					var movieNm = item.getElementsByTagName("movieNm").item(0);
+					movieNm = movieNm.firstChild.nodeValue;
+					str += "<td>"+movieNm+"</td>";
+					//javascript:void(0)  http://etnews.com/"+guid+"
+					
+					var openDt = item.getElementsByTagName("openDt").item(0);
+					openDt = openDt.firstChild.nodeValue;
+					str += "<td>"+openDt+"</td>";
+					
+					var audiAcc = item.getElementsByTagName("audiAcc").item(0);
+					audiAcc = audiAcc.firstChild.nodeValue;
+					str += "<td>"+audiAcc+"</td>";
+					str +="</tr>";
+				}
+				$("#result").html(str);
+				$("h3").html("영화진흥위원회"+ new Date() + "일별박스오피스").css("text-align","center");
+			}
+		});
+	});
+	function openPage(guid){
+		window.open("http://www.etnews.com/"+guid,"_blank","width=800,height=800");//새창열기
+	}
+	
+</script>
+</head>
+<body>
+	<h3></h3>
+	<table border="1" style="width:90%;margin-left:auto;margin-right:auto;">
+		<thead>
+			<tr>
+				<th style="width:5%">번호</th>
+				<th style="width:5%">순위</th>
+				<th style="width:20%">제목</th>
+				<th style="width:8%">개봉일</th>
+				<th style="width:8%">누적관객수</th>
+			</tr>
+		</thead>
+		<tbody id="result">
+		</tbody>
+	</table>
+</body>
+</html>
