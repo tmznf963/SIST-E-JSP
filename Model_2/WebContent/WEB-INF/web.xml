@@ -11,6 +11,6 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>MessageServlet</servlet-name>
-  	<url-pattern>/servlets/servlet/Message</url-pattern>
+  	<url-pattern>*.do</url-pattern>
   </servlet-mapping>
 </web-app>

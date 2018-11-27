@@ -31,12 +31,12 @@ public class MessageController extends HttpServlet {
 		Iterator<Object> list = info.keySet().iterator();
 		this.map = new HashMap<String, Object>();
 		while(list.hasNext()) {
-			String command = (String)list.next();
-			String className = info.getProperty(command);
+			String command = (String)list.next();//--> /test.do
+			String className = info.getProperty(command);  //--> com.example.controller.MessageProcess
 			try {
 				Class classObj = Class.forName(className);
-				Object obj = classObj.newInstance();
-				map.put(command, obj);   //View, com.example.controller.MessageProcess@7dcec65d
+				Object obj = classObj.newInstance(); //-->객체화
+				map.put(command, obj);   //--> /test.do, com.example.controller.MessageProcess@7dcec65d
 			}catch(ClassNotFoundException ex) {
 				System.out.println("ClassNotFoundException");
 			} catch (InstantiationException e) {
@@ -52,7 +52,13 @@ public class MessageController extends HttpServlet {
 		String viewName = null;
 		Controller controller = null;
 		try {
-			String command = request.getParameter("command");  //View
+			//http://localhost:8080/Model_2/test.do
+			String requestURI = request.getRequestURI(); //   /Model_2/test.do
+			String contextPath = request.getContextPath();//  /Model_2
+			String command = null;
+			if(requestURI.indexOf(contextPath) ==0) {
+				command = requestURI.substring(contextPath.length());//   /test.do  [key]
+			}
 			Object obj = this.map.get(command);
 			controller = (Controller)obj;
 			viewName = controller.myservice(request, response);

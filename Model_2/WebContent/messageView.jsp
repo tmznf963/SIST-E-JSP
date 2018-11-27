@@ -9,6 +9,11 @@
 <title>간단한 MVC 페이지</title>
 </head>
 <body>
-	결과 : <c:out value="${result}" />
+<h1>결과 페이지</h1>
+	<ul>
+		<li>이름 : ${requestScope.USERNAME }</li>
+		<li>나이 : ${requestScope.USERAGE}</li>
+		<li>폰번 : ${requestScope.USERPHONE}</li>
+	</ul>
 </body>
 </html>
