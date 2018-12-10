@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vo.CityInfo">
+	<resultMap type="cityInfo" id="cityMap">
+		<result column="ID" property="id" />
+		<result column="Name" property="name" />
+		<result column="CountryCode" property="countryCode" />
+		<result column="District" property="district" />
+		<result column="Population" property="population" />
+		<!-- column은DB , property는VO mapping-->
+	</resultMap>
+
+	<!-- SQL문 #{property값} -->
+	<select id="selectOne" parameterType="int" resultMap="cityMap" resultType="cityInfo"><!-- 넘어오는건 parameter 넘기는건 result -->
+		SELECT * FROM city WHERE ID=#{id}
+	</select>
+	<select id="selectKorea" parameterType="String" resultMap="cityMap" resultType="cityInfo">
+		SELECT * FROM city WHERE CountryCode = #{countryCode}
+	</select>
+</mapper>

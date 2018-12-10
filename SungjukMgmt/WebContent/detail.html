@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="js/jquery.min.js"></script>
+<script>
+	$(function(){
+		var hakbun =
+			$.get("detail.jsp",{"hakbun" : hakbun})
+	});
+</script>
+</head>
+<body>
+	<h3></h3>
+	<ul>
+		<li>학번 : " + s.getHakbun() + "</li>
+		<li>국어 : " + s.getKor() + "</li>
+		<li>영어 : " + s.getEng() + "</li>
+		<li>수학 : " + s.getMat() + "</li>
+		<li>전산 : " + s.getEdp() + "</li>
+		<li>총점 : " + s.getSum() + "</li>
+		<li>평균 : " + s.getAvg() + "</li>
+		<li>평점 : " + s.getGrade() + "</li>
+		<li><button type="button" id="btnUpdate">수정하기</button></li>
+		<li><button type="button" id="btnList">목록으로</button></li>
+		<li><button type="button" id="btnDelete">삭제하기</button></li>
+	</ul>
+</body>
+</html>

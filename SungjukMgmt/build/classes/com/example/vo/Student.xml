@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vo.StudentVO">
+	<!-- type은 config.xml 의 alias 값 -->
+	<resultMap type="StudentVO" id="studentMap">
+		<result column="hakbun" property="hakbun" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="name" property="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column="kor" property="kor" javaType="java.lang.Integer" jdbcType="TINYINT"/>
+		<result column="eng" property="eng" javaType="java.lang.Integer" jdbcType="TINYINT"/>
+		<result column="mat" property="mat" javaType="java.lang.Integer" jdbcType="TINYINT"/>
+		<result column="edp" property="edp" javaType="java.lang.Integer" jdbcType="TINYINT"/>
+		<result column="sum" property="sum" javaType="java.lang.Integer" jdbcType="SMALLINT"/>
+		<result column="avg" property="avg" javaType="java.lang.Double" jdbcType="DOUBLE"/>
+		<result column="grade" property="grade" javaType="java.lang.Character" jdbcType="CHAR"/>
+	</resultMap>
+	<select id="selectAll" resultType="studentVO" resultMap="studentMap">
+		SELECT * FROM Student ORDER BY sum DESC
+	</select>
+	<select id="selectOne" parameterType="String" resultType="studentVO" resultMap="studentMap">
+		SELECT * FROM Student WHERE hakbun=#{hakbun}
+	</select>
+	<insert id="insert" parameterType="StudentVO">
+		INSERT INTO Student
+		VALUES(#{hakbun},#{name},#{kor},#{eng},#{mat},#{edp},#{sum},#{avg},#{grade})
+	</insert>
+</mapper>
+
+<!-- mapper.xml -->
