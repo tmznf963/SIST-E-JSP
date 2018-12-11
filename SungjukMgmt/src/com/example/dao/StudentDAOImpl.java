@@ -1,6 +1,7 @@
 package com.example.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -14,18 +15,31 @@ public class StudentDAOImpl implements StudentDAO {
 	}
 
 	@Override
-	public List<StudentVO> readAll() {
-		return this.sqlSession.selectList("selectAll");
+	public void readAll(Map map) {
+		this.sqlSession.selectList("selectAllSP",map);
 	}
 
 	@Override
-	public int create(StudentVO studentVO) {
-		return this.sqlSession.insert("insert",studentVO);
+	public void create(StudentVO studentVO) {
+		//return this.sqlSession.insert("insert",studentVO);//return type int 일 때
+		this.sqlSession.insert("insertSP",studentVO);
 	}
 
 	@Override
-	public StudentVO read(String hakbun) {
-		return this.sqlSession.selectOne("selectOne",hakbun);
+	public void read(Map map) {
+		this.sqlSession.selectOne("selectOneSP",map);
+	}
+
+	@Override
+	public void delete(String hakbun) {
+		//return this.sqlSession.delete("delete",hakbun); //return type int 였을때
+		this.sqlSession.delete("deleteSP",hakbun);
+	}
+
+	@Override
+	public void update(StudentVO studentVO) {
+		//return this.sqlSession.update("update",studentVO);
+		this.sqlSession.update("updateSP",studentVO);
 	}
 
 }

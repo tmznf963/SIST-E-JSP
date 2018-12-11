@@ -1,12 +1,14 @@
 package com.example.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.vo.StudentVO;
 
 public interface StudentDAO {
-	int create(StudentVO studentVO);
-	StudentVO read(String hakbun);
-	List<StudentVO> readAll();
-	
+	void create(StudentVO studentVO);
+	void read(Map map);
+	void readAll(Map map);
+	void update(StudentVO studentVO);
+	void delete(String hakbun);
 }
